@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hire Drivers | Driver & Employer Sign-Up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 25px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Driver card hover (blue border) */
+        .card-driver:hover {
+            border-color: #3498db;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.1);
+        }
+
+        /* Employer card hover (green border) */
+        .card-employer:hover {
+            border-color: #2ecc71;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.1);
+        }
+
+        /* Guest card hover (gray border) */
+        .card-guest:hover {
+            border-color: #95a5a6;
+            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.1);
+        }
+
+        .card h2 {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .btn-driver {
+            background: #3498db;
+        }
+        .btn-driver:hover {
+            background: #2980b9;
+        }
+
+        .btn-employer {
+            background: #2ecc71;
+        }
+        .btn-employer:hover {
+            background: #27ae60;
+        }
+
+        .btn-guest {
+            background: #95a5a6;
+        }
+        .btn-guest:hover {
+            background: #7f8c8d;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #95a5a6;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Find and Hire Qualified Drivers</h1>
+        <p>Join the leading platform for drivers and employers</p>
+    </div>
+
+    <div class="container">
+        <!-- Driver Card -->
+        <div class="card card-driver">
+            <h2>Sign Up as a Driver</h2>
+            <p>Start working with top employers today.</p>
+            <a href="#" class="btn btn-driver">Driver Sign Up</a>
+        </div>
+
+        <!-- Employer Card -->
+        <div class="card card-employer">
+            <h2>Sign Up as an Employer</h2>
+            <p>Hire reliable drivers for your business needs.</p>
+            <a href="#" class="btn btn-employer">Employer Sign Up</a>
+        </div>
+
+        <!-- Guest Card -->
+        <div class="card card-guest">
+            <h2>Continue as Guest</h2>
+            <p>Explore the platform without an account.</p>
+            <a href="#" class="btn btn-guest">Browse Now</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        Made by Maximilien
+    </div>
+</body>
+</html>
