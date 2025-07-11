@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Sign-Up | Hire Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            width: 33%;
+            background: #3498db;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #7f8c8d;
+        }
+
+        .login-link a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #95a5a6;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <!-- Progress bar (33% for step 1) -->
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+
+        <h1>Driver Sign Up</h1>
+
+        <form id="driverSignupForm">
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="your@email.com">
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required placeholder="+1234567890">
+            </div>
+
+            <!-- ID Number -->
+            <div class="form-group">
+                <label for="idNumber">Government ID Number</label>
+                <input type="text" id="idNumber" name="idNumber" required placeholder="e.g. 123-456-789">
+            </div>
+
+            <button type="submit" class="btn">Continue</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="#">Log in</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        Made by Maximilien
+    </div>
+
+    <script>
+        // Frontend validation (simulated)
+        document.getElementById('driverSignupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate backend check (in real app, this would be an API call)
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const idNumber = document.getElementById('idNumber').value;
+
+            // Simple validation
+            if (email && phone && idNumber) {
+                alert('Validation successful! Redirecting to password creation...');
+                // In a real app: window.location.href = 'create-password.html?email=' + encodeURIComponent(email);
+            } else {
+                alert('Please fill all fields.');
+            }
+        });
+    </script>
+</body>
+</html>
