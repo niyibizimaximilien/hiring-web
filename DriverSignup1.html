@@ -139,21 +139,20 @@
             <div class="progress"></div>
         </div>
         <h1>Driver Sign Up</h1>
-        <form id="driverSignupForm">
+        <form id="driverSignupForm" action="DriverSignup2.html" method="GET">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" required placeholder="your@email.com">
+                <input type="email" id="email" name="email" required placeholder="your@email.com">
             </div>
             <div class="form-group">
                 <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" required placeholder="+1234567890">
+                <input type="tel" id="phone" name="phone" required placeholder="+1234567890">
             </div>
             <div class="form-group">
                 <label for="idNumber">Government ID</label>
-                <input type="text" id="idNumber" required placeholder="123-456-789">
+                <input type="text" id="idNumber" name="idNumber" required placeholder="123-456-789">
             </div>
-           <a href ="DriverSignup2.html"><button type="submit" class="btn">Continue</button></a>
-            
+            <button type="submit" class="btn">Continue</button>
         </form>
         <div class="login-link">
             Already have an account? <a href="#">Log in</a>
