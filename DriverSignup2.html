@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Password | Hire Platform</title>
+    <title>Create Password | Step 2/3</title>
     <style>
         * {
             margin: 0;
@@ -158,7 +158,7 @@
         <form id="passwordForm">
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" required placeholder="At least 8 characters">
+                <input type="password" id="password" name="password" required placeholder="At least 8 characters">
                 <span class="password-toggle" onclick="togglePassword()">Show</span>
                 <div class="password-strength">
                     <div class="strength-bar" id="strengthBar"></div>
@@ -166,9 +166,9 @@
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" required placeholder="Re-enter your password">
+                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter your password">
             </div>
-            <button type="submit" class="btn">Create Account</button>
+            <button type="button" class="btn" onclick="continueToStep3()">Continue</button>
         </form>
     </div>
     <div class="footer">
@@ -176,6 +176,12 @@
     </div>
 
     <script>
+        // Get URL parameters from Step 1
+        const urlParams = new URLSearchParams(window.location.search);
+        const email = urlParams.get('email');
+        const phone = urlParams.get('phone');
+        const idNumber = urlParams.get('idNumber');
+
         function togglePassword() {
             const pwd = document.getElementById('password');
             const toggle = document.querySelector('.password-toggle');
@@ -191,6 +197,30 @@
                 strength < 40 ? '#e74c3c' : 
                 strength < 70 ? '#f39c12' : '#2ecc71';
         });
+
+        function continueToStep3() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Basic validation
+            if (!password || !confirmPassword) {
+                alert('Please fill in both password fields');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters');
+                return;
+            }
+            
+            // Redirect to Step 3 with all collected data
+            window.location.href = `DriverSignup3.html?email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&idNumber=${encodeURIComponent(idNumber)}&password=${encodeURIComponent(password)}`;
+        }
     </script>
 </body>
 </html>
