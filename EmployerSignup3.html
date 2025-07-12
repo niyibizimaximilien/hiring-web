@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Registration | Step 3/3</title>
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --text: #2c3e50;
+            --light-gray: #f8f9fa;
+            --medium-gray: #95a5a6;
+            --border: #e0e0e0;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background-color: var(--light-gray);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .signup-container {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 6px;
+            background: var(--border);
+            width: 100%;
+        }
+        .progress {
+            height: 100%;
+            width: 100%;
+            background: var(--primary);
+        }
+        .form-content {
+            padding: 40px;
+        }
+        h1 {
+            color: var(--text);
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        .subtitle {
+            color: var(--medium-gray);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            color: var(--text);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+        }
+        .upload-box {
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        .upload-box:hover {
+            border-color: var(--primary);
+            background: rgba(46, 204, 113, 0.05);
+        }
+        .upload-box p {
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+        .upload-box small {
+            color: var(--medium-gray);
+            font-size: 0.8rem;
+        }
+        .file-name {
+            color: var(--primary);
+            font-weight: 500;
+            margin-top: 10px;
+            display: none;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+        }
+        @media (max-width: 600px) {
+            .form-content {
+                padding: 30px 25px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .upload-box {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        <div class="form-content">
+            <h1>Verify Your Business</h1>
+            <p class="subtitle">Step 3: Confirm your business details</p>
+            
+            <form id="verificationForm">
+                <!-- Hidden fields from previous steps -->
+                <input type="hidden" name="company" id="company">
+                <input type="hidden" name="email" id="email">
+                <input type="hidden" name="phone" id="phone">
+                <input type="hidden" name="industry" id="industry">
+                <input type="hidden" name="password" id="password">
+                
+                <div class="form-group">
+                    <label>Business License</label>
+                    <div class="upload-box" id="uploadBox">
+                        <p>Upload business license</p>
+                        <small>PDF, JPG, or PNG (max 5MB)</small>
+                        <div class="file-name" id="fileName"></div>
+                        <input type="file" id="licenseUpload" accept=".pdf,.jpg,.png" style="display:none">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="taxId">Tax Identification Number</label>
+                    <input type="text" id="taxId" name="taxId" placeholder="EIN, VAT, or equivalent">
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Business Address</label>
+                    <input type="text" id="address" name="address" placeholder="123 Business St, City">
+                </div>
+                
+                <button type="submit" class="btn">Complete Registration</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Carry forward form data
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById('company').value = params.get('company');
+            document.getElementById('email').value = params.get('email');
+            document.getElementById('phone').value = params.get('phone');
+            document.getElementById('industry').value = params.get('industry');
+            document.getElementById('password').value = params.get('password');
+        });
+
+        // File upload handling
+        document.getElementById('uploadBox').addEventListener('click', function() {
+            document.getElementById('licenseUpload').click();
+        });
+
+        document.getElementById('licenseUpload').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                const fileName = document.getElementById('fileName');
+                fileName.textContent = e.target.files[0].name;
+                fileName.style.display = 'block';
+                document.querySelector('#uploadBox p').textContent = 'Document ready for upload';
+            }
+        });
+
+        // Form submission
+        document.getElementById('verificationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate required fields
+            if (!document.getElementById('licenseUpload').files.length) {
+                alert('Please upload your business license');
+                return;
+            }
+            
+            if (!document.getElementById('taxId').value) {
+                alert('Please enter your tax identification number');
+                return;
+            }
+            
+            // Show loading state
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.textContent = 'Verifying...';
+            btn.disabled = true;
+            
+            // Simulate verification process
+            setTimeout(() => {
+                alert('Registration complete! Your account is being verified.');
+                // window.location.href = 'employer-dashboard.html';
+                btn.textContent = 'Complete Registration';
+                btn.disabled = false;
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
