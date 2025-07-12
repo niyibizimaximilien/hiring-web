@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Registration | Step 2/3</title>
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --text: #2c3e50;
+            --light-gray: #f8f9fa;
+            --medium-gray: #95a5a6;
+            --border: #e0e0e0;
+            --weak: #e74c3c;
+            --medium: #f39c12;
+            --strong: #2ecc71;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background-color: var(--light-gray);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .signup-container {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 6px;
+            background: var(--border);
+            width: 100%;
+        }
+        .progress {
+            height: 100%;
+            width: 66%;
+            background: var(--primary);
+        }
+        .form-content {
+            padding: 40px;
+        }
+        h1 {
+            color: var(--text);
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        .subtitle {
+            color: var(--medium-gray);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        label {
+            display: block;
+            color: var(--text);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+        }
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 42px;
+            color: var(--medium-gray);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .password-strength {
+            margin-top: 10px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s;
+        }
+        .strength-text {
+            font-size: 0.8rem;
+            color: var(--medium-gray);
+            margin-top: 5px;
+            text-align: right;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+        }
+        @media (max-width: 600px) {
+            .form-content {
+                padding: 30px 25px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        <div class="form-content">
+            <h1>Secure Your Account</h1>
+            <p class="subtitle">Step 2: Create a strong password</p>
+            
+            <form id="passwordForm" action="EmployerSignup3.html" method="GET">
+                <!-- Hidden fields from previous step -->
+                <input type="hidden" name="company" id="company">
+                <input type="hidden" name="email" id="email">
+                <input type="hidden" name="phone" id="phone">
+                <input type="hidden" name="industry" id="industry">
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="At least 8 characters">
+                    <span class="password-toggle" id="togglePassword">Show</span>
+                    <div class="password-strength">
+                        <div class="strength-bar" id="strengthBar"></div>
+                    </div>
+                    <div class="strength-text" id="strengthText"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required placeholder="Re-enter your password">
+                </div>
+                
+                <button type="submit" class="btn">Continue</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Carry forward form data
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById('company').value = params.get('company');
+            document.getElementById('email').value = params.get('email');
+            document.getElementById('phone').value = params.get('phone');
+            document.getElementById('industry').value = params.get('industry');
+        });
+
+        // Password toggle
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const pwd = document.getElementById('password');
+            const confirm = document.getElementById('confirmPassword');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                confirm.type = 'text';
+                this.textContent = 'Hide';
+            } else {
+                pwd.type = 'password';
+                confirm.type = 'password';
+                this.textContent = 'Show';
+            }
+        });
+
+        // Password strength meter
+        document.getElementById('password').addEventListener('input', function(e) {
+            const password = e.target.value;
+            const strengthBar = document.getElementById('strengthBar');
+            const strengthText = document.getElementById('strengthText');
+            
+            // Calculate strength
+            let strength = 0;
+            if (password.length >= 8) strength += 1;
+            if (password.match(/[A-Z]/)) strength += 1;
+            if (password.match(/[0-9]/)) strength += 1;
+            if (password.match(/[^A-Za-z0-9]/)) strength += 1;
+            
+            // Update UI
+            const width = (strength / 4) * 100;
+            strengthBar.style.width = width + '%';
+            
+            if (width < 40) {
+                strengthBar.style.backgroundColor = 'var(--weak)';
+                strengthText.textContent = 'Weak';
+                strengthText.style.color = 'var(--weak)';
+            } else if (width < 70) {
+                strengthBar.style.backgroundColor = 'var(--medium)';
+                strengthText.textContent = 'Medium';
+                strengthText.style.color = 'var(--medium)';
+            } else {
+                strengthBar.style.backgroundColor = 'var(--strong)';
+                strengthText.textContent = 'Strong';
+                strengthText.style.color = 'var(--strong)';
+            }
+        });
+    </script>
+</body>
+</html>
