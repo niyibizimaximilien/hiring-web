@@ -1,172 +1,819 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hire Drivers | Driver & Employer Sign-Up</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
+  <!-- =========================================================
+       MIE EMPIRE — Bold Single-File Site
+       Author: you + GPT-5 Thinking
+       Notes:
+       - Pure HTML/CSS/JS (no frameworks, no external assets)
+       - Brand base: blue gradient + diagonal stripes (from snapshots)
+       - Clean, serious, premium feel for CEO Murindahabi Irene
+       - Features: sticky header, smooth scroll, hero animation,
+         counters, video lightbox, lazy loading, keyboard a11y,
+         responsive grid, form validation, and micro-interactions.
+       ========================================================== -->
 
-        body {
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+  <title>MIE Empire — Official Showcase</title>
+  <meta name="description" content="MIE Empire by Murindahabi Irene — Leading Rwandan entertainment & news. Watch featured videos, learn the story, and get in touch for collaborations." />
+  <meta name="theme-color" content="#1e8af7" />
 
-        .header h1 {
-            font-size: 28px;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
+  <!-- Open Graph -->
+  <meta property="og:title" content="MIE Empire — Official Showcase" />
+  <meta property="og:description" content="Bold, premium one-page site for MIE Empire by Murindahabi Irene." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/svg+xml;utf8,
+  <svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'>
+    <defs>
+      <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
+        <stop offset='0%' stop-color='%231aa7ff'/>
+        <stop offset='100%' stop-color='%23156bdc'/>
+      </linearGradient>
+    </defs>
+    <rect width='100%' height='100%' fill='url(%23g)'/>
+    <text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle'
+          font-family='Montserrat, Arial' font-size='120' fill='white' font-weight='800'>MIE</text>
+  </svg>" />
 
-        .header p {
-            color: #7f8c8d;
-        }
+  <style>
+    /* ---------------------------------------------------------
+       VARIABLES
+       --------------------------------------------------------- */
+    :root{
+      --mie-blue-1:#2bb2ff;   /* light sky from screenshot */
+      --mie-blue-2:#1e8af7;   /* brand base */
+      --mie-blue-3:#156bdc;   /* deep */
+      --mie-ink:#0c0f14;      /* charcoal for text on light */
+      --mie-paper:#ffffff;    /* pure white */
+      --mie-gold:#c9a635;     /* subtle prestige accent */
+      --mie-muted:#a7bddb;    /* light muted text */
+      --radius-lg:18px;
+      --radius-md:12px;
+      --radius-sm:8px;
+      --shadow-1:0 8px 24px rgba(0,0,0,.12);
+      --shadow-2:0 18px 40px rgba(0,0,0,.2);
+      --maxw:1180px;
+      --stripe-size:24px;     /* diagonal stripe thickness */
+      --trans-1:220ms cubic-bezier(.2,.8,.2,1);
+      --trans-2:420ms cubic-bezier(.19,1,.22,1);
+    }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            flex: 1;
-        }
+    /* ---------------------------------------------------------
+       RESET + BASE
+       --------------------------------------------------------- */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font:400 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      color:var(--mie-paper);
+      background:
+        /* stripes */
+        repeating-linear-gradient(135deg,
+          rgba(255,255,255,.06) 0,
+          rgba(255,255,255,.06) var(--stripe-size),
+          rgba(255,255,255,0)   var(--stripe-size),
+          rgba(255,255,255,0)   calc(var(--stripe-size)*2)
+        ),
+        /* gradient */
+        linear-gradient(135deg, var(--mie-blue-1) 0%, var(--mie-blue-2) 45%, var(--mie-blue-3) 100%);
+      overflow-x:hidden;
+      background-attachment: fixed;
+    }
+    img{display:block; max-width:100%; height:auto}
+    a{color:inherit; text-decoration:none}
+    .wrap{width:100%; max-width:var(--maxw); margin:0 auto; padding:0 20px}
 
-        .card {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 25px;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
+    /* ---------------------------------------------------------
+       TYPOGRAPHY (robust, bold)
+       --------------------------------------------------------- */
+    h1,h2,h3,h4{margin:0 0 .6em; line-height:1.15; font-weight:800; letter-spacing:.3px}
+    h1{font-size:clamp(38px, 5vw, 68px)}
+    h2{font-size:clamp(28px, 3.2vw, 44px)}
+    h3{font-size:clamp(20px, 2.2vw, 28px)}
+    p{margin:.5em 0 1em; color:#e9f2ff}
+    .muted{color:var(--mie-muted)}
+    .accent{color:var(--mie-gold)}
+    .eyebrow{
+      text-transform:uppercase; letter-spacing:2px; font-weight:700; font-size:.82rem;
+      color:rgba(255,255,255,.85);
+    }
 
-        /* Driver card hover (blue border) */
-        .card-driver:hover {
-            border-color: #3498db;
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.1);
-        }
+    /* ---------------------------------------------------------
+       UTILS
+       --------------------------------------------------------- */
+    .grid{display:grid; gap:28px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    @media (max-width:960px){.grid-2,.grid-3{grid-template-columns:1fr}}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      background:var(--mie-paper); color:#0a0f14;
+      border-radius:999px; padding:12px 20px; font-weight:700;
+      transition:transform var(--trans-1), box-shadow var(--trans-1);
+      box-shadow:var(--shadow-1);
+    }
+    .btn:hover{transform:translateY(-1px); box-shadow:var(--shadow-2)}
+    .btn-outline{
+      background:transparent; color:var(--mie-paper); border:2px solid rgba(255,255,255,.7)
+    }
+    .chips{display:flex; flex-wrap:wrap; gap:10px}
+    .chip{padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.25); font-weight:600}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius-lg); padding:24px; backdrop-filter: blur(6px);
+      box-shadow:var(--shadow-1);
+    }
 
-        /* Employer card hover (green border) */
-        .card-employer:hover {
-            border-color: #2ecc71;
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.1);
-        }
+    /* ---------------------------------------------------------
+       HEADER
+       --------------------------------------------------------- */
+    header.nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(140%) blur(8px);
+      background:linear-gradient(180deg, rgba(10,15,24,.65), rgba(10,15,24,.35));
+      border-bottom:1px solid rgba(255,255,255,.08)
+    }
+    .nav .inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{
+      display:grid; grid-auto-flow:column; align-items:center; gap:12px; font-weight:900;
+      letter-spacing:.5px;
+    }
+    .logo{
+      width:54px; height:36px; position:relative; border-radius:6px; overflow:hidden;
+      background:var(--mie-paper); color:#0b0f14; display:grid; place-items:center;
+      font-weight:900;
+    }
+    .logo span{display:block; transform:scale(1.05) translateY(1px)}
+    /* piano key underline inside logo */
+    .logo::after{
+      content:""; position:absolute; left:0; right:0; bottom:0; height:8px;
+      background:
+        repeating-linear-gradient(90deg, #000 0 4px, #fff 4px 8px);
+      box-shadow: inset 0 1px 0 rgba(0,0,0,.3);
+    }
+    nav ul{list-style:none; margin:0; padding:0; display:flex; gap:22px}
+    nav a{opacity:.9; font-weight:700}
+    nav a:hover, nav a:focus{opacity:1; text-decoration:underline}
 
-        /* Guest card hover (gray border) */
-        .card-guest:hover {
-            border-color: #95a5a6;
-            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.1);
-        }
+    /* ---------------------------------------------------------
+       HERO (animated gradient, clouds, call-to-actions)
+       --------------------------------------------------------- */
+    .hero{
+      position:relative; min-height:88vh; display:grid; align-items:center;
+      overflow:hidden;
+      isolation:isolate;
+    }
+    .hero .bg{
+      position:absolute; inset:-2px; z-index:-2;
+      background:
+        repeating-linear-gradient(135deg,
+          rgba(255,255,255,.06) 0 var(--stripe-size),
+          rgba(255,255,255,0) var(--stripe-size) calc(var(--stripe-size)*2)
+        ),
+        radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,.18), transparent 60%),
+        linear-gradient(135deg, var(--mie-blue-1) 0%, var(--mie-blue-2) 45%, var(--mie-blue-3) 100%);
+      animation: sheen 14s linear infinite;
+      background-size: auto, auto, 100% 100%;
+    }
+    @keyframes sheen{
+      0%{filter:brightness(1)}
+      50%{filter:brightness(1.05)}
+      100%{filter:brightness(1)}
+    }
 
-        .card h2 {
-            font-size: 20px;
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
+    /* "cloud" wisps inspired by screenshot corner smoke */
+    .wisp{
+      position:absolute; width:min(56vw,920px); height:min(18vw,300px);
+      filter:blur(10px); opacity:.22; pointer-events:none; z-index:-1;
+      background:
+        radial-gradient(60% 60% at 40% 55%, rgba(255,255,255,.9), rgba(255,255,255,.0) 65%),
+        radial-gradient(45% 45% at 65% 40%, rgba(255,255,255,.7), rgba(255,255,255,0) 70%),
+        radial-gradient(70% 70% at 30% 40%, rgba(255,255,255,.6), rgba(255,255,255,0) 70%);
+      mix-blend-mode: screen;
+      animation: drift 38s ease-in-out infinite;
+      transform: translate3d(0,0,0);
+    }
+    .wisp.w2{animation-duration: 52s; opacity:.18; transform:scale(1.2)}
+    .wisp.w3{animation-duration: 46s; opacity:.12; transform:scale(1.4)}
+    @keyframes drift{
+      0%{transform:translateX(-14%) translateY(-6%) scale(1)}
+      50%{transform:translateX(22%) translateY(4%) scale(1.05)}
+      100%{transform:translateX(-14%) translateY(-6%) scale(1)}
+    }
 
-        .card p {
-            color: #7f8c8d;
-            margin-bottom: 20px;
-        }
+    .hero .content{padding:120px 0 80px}
+    .headline{max-width:900px}
+    .cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:18px}
 
-        .btn {
-            display: inline-block;
-            padding: 10px 25px;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.2s ease;
-        }
+    /* ---------------------------------------------------------
+       SECTION WRAPPERS
+       --------------------------------------------------------- */
+    section{padding:80px 0}
+    section.alt{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-top:1px solid rgba(255,255,255,.06);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
 
-        .btn-driver {
-            background: #3498db;
-        }
-        .btn-driver:hover {
-            background: #2980b9;
-        }
+    /* ---------------------------------------------------------
+       ABOUT
+       --------------------------------------------------------- */
+    .about .portrait{
+      border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:4/3;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,0)),
+        radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,.25), transparent 55%),
+        linear-gradient(135deg, #1c8ff8, #156bdc);
+      display:grid; place-items:end start; padding:18px;
+      box-shadow:var(--shadow-2);
+      position:relative;
+    }
+    /* stylized big MIE watermark */
+    .about .portrait::after{
+      content:"MIE"; position:absolute; inset:auto 12px 10px auto;
+      font-weight:900; font-size:min(14vw,140px); color:rgba(0,0,0,.18); letter-spacing:2px;
+      transform:translateY(14px);
+    }
 
-        .btn-employer {
-            background: #2ecc71;
-        }
-        .btn-employer:hover {
-            background: #27ae60;
-        }
+    /* ---------------------------------------------------------
+       STATS (animated counters)
+       --------------------------------------------------------- */
+    .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:20px}
+    @media (max-width:960px){.stats{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:560px){.stats{grid-template-columns:1fr}}
+    .stat{
+      padding:26px; border-radius:var(--radius-lg);
+      background:linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.12));
+      border:1px solid rgba(255,255,255,.1);
+      box-shadow:var(--shadow-1); text-align:center
+    }
+    .stat .num{font-size:44px; font-weight:900; letter-spacing:.6px}
+    .stat .label{opacity:.85; font-weight:700}
 
-        .btn-guest {
-            background: #95a5a6;
-        }
-        .btn-guest:hover {
-            background: #7f8c8d;
-        }
+    /* ---------------------------------------------------------
+       VIDEO GALLERY (with filters + modal lightbox)
+       --------------------------------------------------------- */
+    .filters{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px}
+    .filters button{
+      border:none; cursor:pointer; padding:10px 14px; border-radius:999px;
+      font-weight:800; background:rgba(255,255,255,.12); color:#fff; transition:all var(--trans-1)
+    }
+    .filters button.active, .filters button:hover{background:var(--mie-paper); color:#0b0f14}
 
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #95a5a6;
-            font-size: 14px;
-        }
+    .gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    @media (max-width:1000px){.gallery{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.gallery{grid-template-columns:1fr}}
 
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+    .tile{
+      position:relative; overflow:hidden; border-radius:16px;
+      background:#0c0f14; aspect-ratio:16/9;
+      border:1px solid rgba(255,255,255,.12); box-shadow:var(--shadow-1);
+      cursor:pointer; transform:translateZ(0)
+    }
+    .tile .thumb{width:100%; height:100%; object-fit:cover; filter:saturate(1.05) contrast(1.08)}
+    .tile .scrim{
+      position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,.65) 100%);
+      opacity:.9;
+    }
+    .tile h4{
+      position:absolute; left:14px; right:14px; bottom:10px; margin:0; z-index:1;
+      font-size:16px; line-height:1.25; font-weight:800
+    }
+    .tile .play{
+      position:absolute; inset:auto auto 50% 50%; transform:translate(-50%, 50%);
+      width:66px; height:66px; border-radius:50%; background:rgba(255,255,255,.95); display:grid; place-items:center;
+      transition:transform var(--trans-2), box-shadow var(--trans-2);
+      box-shadow:0 14px 40px rgba(0,0,0,.35)
+    }
+    .tile:hover .play{transform:translate(-50%, 50%) scale(1.07); box-shadow:0 22px 60px rgba(0,0,0,.45)}
+
+    /* modal */
+    .modal{
+      position:fixed; inset:0; background:rgba(7,10,16,.76); display:none; align-items:center; justify-content:center;
+      padding:24px; z-index:90; backdrop-filter: blur(4px)
+    }
+    .modal.open{display:flex}
+    .modal .box{
+      width:min(980px, 96vw); aspect-ratio:16/9; border-radius:16px; overflow:hidden; background:#000; position:relative
+    }
+    .modal .close{
+      position:absolute; top:-50px; right:0; background:transparent; border:2px solid #fff; color:#fff;
+      font-weight:900; border-radius:999px; padding:8px 12px; cursor:pointer
+    }
+
+    /* ---------------------------------------------------------
+       PRESS / QUOTES
+       --------------------------------------------------------- */
+    .quote{
+      padding:24px; border-radius:16px; border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      box-shadow:var(--shadow-1)
+    }
+    .quote p{font-size:18px}
+    .quote .who{font-weight:800; margin-top:8px; color:#fff}
+
+    /* ---------------------------------------------------------
+       TIMELINE
+       --------------------------------------------------------- */
+    .timeline{position:relative; padding-left:30px}
+    .timeline::before{
+      content:""; position:absolute; left:12px; top:0; bottom:0; width:3px;
+      background:linear-gradient(180deg, rgba(255,255,255,.7), rgba(255,255,255,.08))
+    }
+    .tl-item{position:relative; margin:16px 0; padding-left:10px}
+    .tl-item::before{
+      content:""; position:absolute; left:-4px; top:8px; width:14px; height:14px; border-radius:50%;
+      background:var(--mie-paper); box-shadow:0 0 0 5px rgba(255,255,255,.18)
+    }
+    .tl-item h4{margin-bottom:6px}
+
+    /* ---------------------------------------------------------
+       CONTACT
+       --------------------------------------------------------- */
+    form{
+      display:grid; gap:14px; background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.12); padding:20px; border-radius:16px
+    }
+    input, textarea{
+      width:100%; padding:14px 16px; border-radius:12px; border:1px solid rgba(255,255,255,.2);
+      background:rgba(255,255,255,.08); color:#fff; font-weight:600; outline:none
+    }
+    input::placeholder, textarea::placeholder{color:#dce8ff}
+    textarea{min-height:140px; resize:vertical}
+    .form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    @media (max-width:720px){.form-row{grid-template-columns:1fr}}
+    .form-foot{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap}
+    .msg{font-weight:800}
+    .ok{color:#9CFFB3}
+    .err{color:#ffb3b3}
+
+    /* ---------------------------------------------------------
+       FOOTER
+       --------------------------------------------------------- */
+    footer{
+      padding:28px 0; border-top:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(10,15,24,.45), rgba(10,15,24,.65))
+    }
+    .foot{
+      display:flex; align-items:center; gap:16px; justify-content:space-between; flex-wrap:wrap;
+      font-weight:700
+    }
+
+    /* ---------------------------------------------------------
+       REVEAL ANIMATIONS
+       --------------------------------------------------------- */
+    .reveal{opacity:0; transform:translateY(16px); transition:all 600ms cubic-bezier(.2,.8,.2,1)}
+    .reveal.in{opacity:1; transform:none}
+  </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Find and Hire Qualified Drivers</h1>
-        <p>Join the leading platform for drivers and employers</p>
+
+  <!-- ========================= HEADER ========================= -->
+  <header class="nav" role="banner">
+    <div class="wrap inner">
+      <a class="brand" href="#top" aria-label="MIE Empire home">
+        <div class="logo" aria-hidden="true"><span>MIE</span></div>
+        <div>
+          <div style="font-weight:900; line-height:1">MIE Empire</div>
+          <small class="muted" style="font-weight:700">Founded by Murindahabi Irene</small>
+        </div>
+      </a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#stats">Impact</a></li>
+          <li><a href="#videos">Videos</a></li>
+          <li><a href="#press">Press</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========================= HERO ========================= -->
+  <section id="top" class="hero">
+    <div class="bg"></div>
+    <div class="wisp w1" style="top:12%; left:10%"></div>
+    <div class="wisp w2" style="top:28%; right:-8%"></div>
+    <div class="wisp w3" style="bottom:10%; left:20%"></div>
+
+    <div class="wrap content">
+      <p class="eyebrow reveal">Rwandan Entertainment & News</p>
+      <div class="headline reveal" style="transition-delay:100ms">
+        <h1>Bold stories. <span class="accent">Real voices.</span> The MIE Empire standard.</h1>
+        <p class="muted" style="max-width:760px">
+          A premium media platform led by <strong>Murindahabi Irene</strong> — delivering interviews, breaking news, and cultural insights with integrity and impact.
+        </p>
+      </div>
+      <div class="cta-row reveal" style="transition-delay:160ms">
+        <a class="btn" href="#videos" aria-label="Jump to featured videos">
+          ▶ Watch Featured
+        </a>
+        <a class="btn btn-outline" href="#contact">Collaborate</a>
+      </div>
+      <div class="chips reveal" style="margin-top:22px; transition-delay:220ms">
+        <span class="chip">Journalism</span>
+        <span class="chip">Broadcast</span>
+        <span class="chip">Documentary</span>
+        <span class="chip">Rwanda</span>
+        <span class="chip">East Africa</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= ABOUT ========================= -->
+  <section id="about" class="about alt">
+    <div class="wrap grid grid-2">
+      <div class="portrait reveal" aria-hidden="true">
+        <!-- purely decorative; in production replace with a real portrait -->
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">About MIE Empire</p>
+        <h2>Serious journalism. Zero noise.</h2>
+        <p>
+          MIE Empire was built on a clear promise: <strong>substance first</strong>. With a rare blend of discipline,
+          culture, and urgency, Murindahabi Irene leads interviews and reportage that move the conversation forward.
+        </p>
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>Focus</h3>
+            <p class="muted">Entertainment news, verified stories, and in-depth interviews with the region’s voices that matter.</p>
+          </div>
+          <div class="card">
+            <h3>Standard</h3>
+            <p class="muted">Truth, clarity, and respect — presented in a premium experience worthy of a serious audience.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= STATS ========================= -->
+  <section id="stats">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">Impact</p>
+        <h2>Numbers that speak.</h2>
+      </div>
+
+      <div class="stats" style="margin-top:20px">
+        <div class="stat reveal">
+          <div class="num" data-count="840000">0</div>
+          <div class="label">YouTube Subscribers</div>
+        </div>
+        <div class="stat reveal">
+          <div class="num" data-count="1500">0</div>
+          <div class="label">Published Videos</div>
+        </div>
+        <div class="stat reveal">
+          <div class="num" data-count="10">0</div>
+          <div class="label">Years in Media</div>
+        </div>
+        <div class="stat reveal">
+          <div class="num" data-count="120">0</div>
+          <div class="label">Notable Interviews</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= VIDEO GALLERY ========================= -->
+  <section id="videos" class="alt">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">Featured</p>
+        <h2>Watch. Learn. Share.</h2>
+        <p class="muted">Curated clips from MIE Empire. Click to open the video in a clean lightbox.</p>
+      </div>
+
+      <div class="filters reveal" role="tablist" aria-label="Video filters">
+        <button class="active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button data-filter="news" role="tab" aria-selected="false">News</button>
+        <button data-filter="interview" role="tab" aria-selected="false">Interviews</button>
+        <button data-filter="documentary" role="tab" aria-selected="false">Documentary</button>
+      </div>
+
+      <div class="gallery">
+        <!-- Tiles: replace thumbnail URLs with real video thumbs if needed -->
+        <article class="tile reveal" data-cat="news" data-yt="DNf3e0LOOzc" tabindex="0" aria-label="Play video 1">
+          <img class="thumb" alt="" loading="lazy"
+               src="https://i.ytimg.com/vi/DNf3e0LOOzc/hqdefault.jpg">
+          <div class="scrim"></div>
+          <h4>WINSIGA — Official Video</h4>
+          <div class="play" aria-hidden="true">▶</div>
+        </article>
+
+        <article class="tile reveal" data-cat="interview" data-yt="-Qju4JlQS7g" tabindex="0" aria-label="Play video 2">
+          <img class="thumb" alt="" loading="lazy"
+               src="https://i.ytimg.com/vi/-Qju4JlQS7g/hqdefault.jpg">
+          <div class="scrim"></div>
+          <h4>Irene on Legacy & Vision</h4>
+          <div class="play" aria-hidden="true">▶</div>
+        </article>
+
+        <article class="tile reveal" data-cat="documentary" data-yt="DNf3e0LOOzc" tabindex="0" aria-label="Play video 3">
+          <img class="thumb" alt="" loading="lazy"
+               src="https://i.ytimg.com/vi/DNf3e0LOOzc/hqdefault.jpg">
+          <div class="scrim"></div>
+          <h4>Inside Rwanda’s Music Scene</h4>
+          <div class="play" aria-hidden="true">▶</div>
+        </article>
+
+        <article class="tile reveal" data-cat="news" data-yt="-Qju4JlQS7g" tabindex="0" aria-label="Play video 4">
+          <img class="thumb" alt="" loading="lazy"
+               src="https://i.ytimg.com/vi/-Qju4JlQS7g/hqdefault.jpg">
+          <div class="scrim"></div>
+          <h4>Breaking: Artist Spotlight</h4>
+          <div class="play" aria-hidden="true">▶</div>
+        </article>
+
+        <article class="tile reveal" data-cat="interview" data-yt="DNf3e0LOOzc" tabindex="0" aria-label="Play video 5">
+          <img class="thumb" alt="" loading="lazy"
+               src="https://i.ytimg.com/vi/DNf3e0LOOzc/hqdefault.jpg">
+          <div class="scrim"></div>
+          <h4>The Conversation: Craft & Discipline</h4>
+          <div class="play" aria-hidden="true">▶</div>
+        </article>
+
+        <article class="tile reveal" data-cat="documentary" data-yt="-Qju4JlQS7g" tabindex="0" aria-label="Play video 6">
+          <img class="thumb" alt="" loading="lazy"
+               src="https://i.ytimg.com/vi/-Qju4JlQS7g/hqdefault.jpg">
+          <div class="scrim"></div>
+          <h4>Field Report — Culture & Community</h4>
+          <div class="play" aria-hidden="true">▶</div>
+        </article>
+      </div>
     </div>
 
-    <div class="container">
-        <!-- Driver Card -->
-        <div class="card card-driver">
-            <h2>Sign Up as a Driver</h2>
-            <p>Start working with top employers today.</p>
-            <a href="DriverSignup1.html" class="btn btn-driver">Driver Sign Up</a>
-        </div>
-
-        <!-- Employer Card -->
-        <div class="card card-employer">
-            <h2>Sign Up as an Employer</h2>
-            <p>Hire reliable drivers for your business needs.</p>
-            <a href="EmployerSignup1.html" class="btn btn-employer">Employer Sign Up</a>
-        </div>
-
-        <!-- Guest Card -->
-        <div class="card card-guest">
-            <h2>Continue as Guest</h2>
-            <p>Explore the platform without an account.</p>
-            <a href="#" class="btn btn-guest">Browse Now</a>
-        </div>
+    <!-- Lightbox modal -->
+    <div class="modal" id="ytModal" aria-hidden="true" aria-label="Video player modal">
+      <div class="box">
+        <iframe id="ytFrame" width="100%" height="100%" src="" title="YouTube video player"
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <button class="close" type="button" aria-label="Close video">✕ Close</button>
+      </div>
     </div>
+  </section>
 
-    <div class="footer">
-        Made by Maximilien
+  <!-- ========================= PRESS / QUOTES ========================= -->
+  <section id="press">
+    <div class="wrap grid grid-3">
+      <div class="quote reveal">
+        <p>“MIE Empire consistently delivers verified, culture-shaping interviews. Professional. Relentless.”</p>
+        <div class="who">Regional Media Executive</div>
+      </div>
+      <div class="quote reveal">
+        <p>“A standard-setter for entertainment news in Rwanda — serious, measured, and modern.”</p>
+        <div class="who">Industry Analyst</div>
+      </div>
+      <div class="quote reveal">
+        <p>“Murindahabi Irene is respected for his preparedness and integrity in every conversation.”</p>
+        <div class="who">Artist Manager</div>
+      </div>
     </div>
+  </section>
+
+  <!-- ========================= TIMELINE ========================= -->
+  <section class="alt">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">Milestones</p>
+        <h2>The road so far.</h2>
+      </div>
+      <div class="timeline" style="margin-top:16px">
+        <div class="tl-item reveal">
+          <h4>2014 — Foundation</h4>
+          <p class="muted">Early interviews that shaped the MIE approach: disciplined, human, direct.</p>
+        </div>
+        <div class="tl-item reveal">
+          <h4>2018 — Breakthrough Coverage</h4>
+          <p class="muted">Rapid audience growth powered by verified stories and consistent cadence.</p>
+        </div>
+        <div class="tl-item reveal">
+          <h4>2022 — Regional Recognition</h4>
+          <p class="muted">Cross-border collaborations and high-profile conversations.</p>
+        </div>
+        <div class="tl-item reveal">
+          <h4>Today — Premium Platform</h4>
+          <p class="muted">A trusted home for entertainment news & interviews in Rwanda and beyond.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= CONTACT ========================= -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">Work with MIE</p>
+        <h2>Business & media enquiries.</h2>
+        <p class="muted">Send a message — serious collaborations only. We’ll get back quickly.</p>
+      </div>
+
+      <form id="contactForm" novalidate class="reveal" style="margin-top:14px">
+        <div class="form-row">
+          <div>
+            <label for="name" class="eyebrow">Name</label>
+            <input id="name" name="name" placeholder="Your full name" required maxlength="80" />
+          </div>
+          <div>
+            <label for="email" class="eyebrow">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="subject" class="eyebrow">Subject</label>
+            <input id="subject" name="subject" placeholder="Interview / Partnership / Sponsorship…" required maxlength="120" />
+          </div>
+          <div>
+            <label for="budget" class="eyebrow">Budget (optional)</label>
+            <input id="budget" name="budget" placeholder="USD or RWF" inputmode="numeric" />
+          </div>
+        </div>
+        <div>
+          <label for="message" class="eyebrow">Message</label>
+          <textarea id="message" name="message" placeholder="Keep it concise and clear." required></textarea>
+        </div>
+        <div class="form-foot">
+          <button class="btn" type="submit">Send message</button>
+          <div id="formMsg" class="msg" role="status" aria-live="polite"></div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========================= FOOTER ========================= -->
+  <footer role="contentinfo">
+    <div class="wrap foot">
+      <div class="brand" aria-hidden="true">
+        <div class="logo"><span>MIE</span></div>
+        <span>Empire</span>
+      </div>
+      <div>© <span id="year"></span> MIE Empire. All rights reserved.</div>
+      <div class="chips">
+        <a class="chip" href="#top">Back to top ↑</a>
+        <a class="chip" href="https://www.youtube.com/@mieempire8576" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ==========================================================
+       JS: interactions, a11y, performance-minded
+       ========================================================== */
+
+    // Utility: clamp
+    const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
+
+    // Sticky header subtle shrink (already sticky; here we just add class if needed)
+    (function(){
+      const header = document.querySelector('header.nav');
+      let lastY = 0;
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY || 0;
+        header.style.borderBottomColor = y > 8 ? 'rgba(255,255,255,.14)' : 'rgba(255,255,255,.08)';
+        header.style.boxShadow = y > 24 ? '0 10px 30px rgba(0,0,0,.18)' : 'none';
+        lastY = y;
+      }, {passive:true});
+    })();
+
+    // Reveal-on-scroll
+    (function(){
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        })
+      }, {threshold:.12});
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    })();
+
+    // Animated counters
+    (function(){
+      const els = document.querySelectorAll('.num[data-count]');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(!entry.isIntersecting) return;
+          const el = entry.target;
+          const to = parseInt(el.getAttribute('data-count'), 10) || 0;
+          const start = performance.now();
+          const dur = 1400 + Math.random()*600;
+          const fmt = (n)=> n.toLocaleString('en');
+          (function tick(now){
+            const p = clamp((now - start)/dur, 0, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = fmt(Math.round(eased * to));
+            if(p < 1) requestAnimationFrame(tick);
+          })(start);
+          io.unobserve(el);
+        })
+      }, {threshold:.45});
+      els.forEach(el => io.observe(el));
+    })();
+
+    // Smooth anchor scroll
+    (function(){
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          const id = a.getAttribute('href').slice(1);
+          const target = document.getElementById(id);
+          if(!target) return;
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+          history.pushState(null, '', '#'+id);
+        });
+      });
+    })();
+
+    // Video filters + lightbox
+    (function(){
+      const buttons = Array.from(document.querySelectorAll('.filters button'));
+      const tiles = Array.from(document.querySelectorAll('.tile'));
+      const modal = document.getElementById('ytModal');
+      const iframe = document.getElementById('ytFrame');
+      const closeBtn = modal.querySelector('.close');
+
+      function setActive(btn){
+        buttons.forEach(b => b.classList.toggle('active', b === btn));
+      }
+
+      function applyFilter(cat){
+        tiles.forEach(t=>{
+          const show = cat==='all' || t.dataset.cat===cat;
+          t.style.display = show ? '' : 'none';
+        });
+      }
+
+      buttons.forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          setActive(btn);
+          applyFilter(btn.dataset.filter);
+        });
+      });
+
+      function openModal(id){
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+        // lock scroll
+        document.documentElement.style.overflow = 'hidden';
+      }
+      function closeModal(){
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        iframe.src = '';
+        document.documentElement.style.overflow = '';
+      }
+
+      tiles.forEach(t=>{
+        const id = t.dataset.yt;
+        function trigger(){ openModal(id); }
+        t.addEventListener('click', trigger);
+        t.addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); trigger(); } });
+      });
+
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+      window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
+    })();
+
+    // Form validation (demo only)
+    (function(){
+      const form = document.getElementById('contactForm');
+      const msg = document.getElementById('formMsg');
+
+      form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(form).entries());
+        // basic validation
+        if(!data.name || !data.email || !data.subject || !data.message){
+          msg.textContent = 'Please fill all required fields.';
+          msg.className = 'msg err';
+          return;
+        }
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+        if(!emailOk){
+          msg.textContent = 'Invalid email address.';
+          msg.className = 'msg err';
+          return;
+        }
+        // simulate success
+        msg.textContent = 'Message sent. Thank you — we’ll reply shortly.';
+        msg.className = 'msg ok';
+        form.reset();
+      });
+    })();
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
